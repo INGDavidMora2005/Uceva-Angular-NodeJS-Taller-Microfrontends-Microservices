@@ -16,6 +16,7 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
  * @see {@link UsersPage}
  * @see {@link ProductsPage}
  * @see {@link OrdersPage}
+ * @see {@link CoursesPage}
  */
 export const routes: Routes = [
 
@@ -66,6 +67,22 @@ export const routes: Routes = [
                 remoteEntry: 'http://localhost:4203/remoteEntry.js',
                 exposedModule: './OrdersPage',
         }).then(m => m.OrdersPage),
+    },
+  /**
+   * Ruta de cursos.
+   *
+   * @remarks
+   * Renderiza el componente `CoursesPage`, encargado
+   * de mostrar y gestionar el listado de cursos.
+   */
+  {
+        path: 'courses',
+        loadComponent: () =>
+            loadRemoteModule({
+                type: 'module',
+                remoteEntry: 'http://localhost:4204/remoteEntry.js',
+                exposedModule: './CoursesPage',
+        }).then(m => m.CoursesPage),
     },
 
   /**
