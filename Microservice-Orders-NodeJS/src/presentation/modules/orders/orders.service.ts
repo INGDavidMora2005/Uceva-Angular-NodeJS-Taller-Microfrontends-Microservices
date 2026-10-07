@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Product, ProductCategory } from '../../../domain/interfaces/product.interface';
+import { Order, OrderStatus } from '../../../domain/interfaces/order.interface';
 
 /**
  * Servicio encargado de la generación y gestión de pedidos.
@@ -9,20 +9,6 @@ import { Product, ProductCategory } from '../../../domain/interfaces/product.int
  * ficticios, principalmente con fines de prueba o demostración.
  */
 export class OrdersService {
-
-  /**
-   * Categorías disponibles para los productos.
-   *
-   * @remarks
-   * Se utilizan para asignar aleatoriamente una categoría
-   * a cada producto generado.
-   */
-  private categories: ProductCategory[] = [
-    'Lacteos',
-    'Frutas',
-    'Carnes',
-    'Verduras'
-  ];
 
   /**
    * Obtiene un listado de pedidos generados dinámicamente.
@@ -35,46 +21,41 @@ export class OrdersService {
    * const orders = await ordersService.getAllOrders(10);
    * ```
    */
-  public async getAllOrders(countOrders: number): Promise<any[]> {
-    const orders: Promise<any>[] = [];
+  public async getAllOrders(countOrders: number): Promise<Order[]> {
+    const orders: Order[] = [];
 
     for (let i = 1; i <= countOrders; i++) {
       orders.push(this.generateOrder(i));
     }
 
-    return Promise.all(orders);
+    return Promise.resolve(orders);
   }
 
   /**
    * Genera un pedido ficticio.
    *
    * @param id Identificador único del pedido
-   * @returns Promesa que resuelve un pedido generado
+   * @returns Pedido generado
    */
-  private generateOrder(id: number): Promise<any> {
-    // TODO(orders): reemplazar por modelo Order
-    const productCount = faker.number.int({ min: 1, max: 5 });
-    const products: Product[] = [];
+  private generateOrder(id: number): Order {
+    const quantity = faker.number.int({ min: 1, max: 10 });
+    const unitPrice = Number(faker.commerce.price({ min: 10, max: 500, dec: 2 }));
+    const total = Number((quantity * unitPrice).toFixed(2));
+    const status = faker.helpers.arrayElement<OrderStatus>([
+      'Pendiente',
+      'Enviado',
+      'Entregado',
+      'Cancelado',
+    ]);
 
-    for (let j = 1; j <= productCount; j++) {
-      products.push({
-        id: j,
-        name: faker.commerce.productName(),
-        price: Number(
-          faker.commerce.price({ min: 1, max: 100, dec: 2 })
-        ),
-        category: faker.helpers.arrayElement(this.categories),
-      });
-    }
-
-    const total = products.reduce((sum, p) => sum + p.price, 0);
-
-    return Promise.resolve({
+    return {
       id,
-      userId: faker.number.int({ min: 100, max: 200 }),
+      customer: faker.person.fullName(),
+      product: faker.commerce.productName(),
+      quantity,
       total,
-      products,
-      createdAt: faker.date.recent().toISOString(),
-    });
+      status,
+      createdAt: faker.date.recent({ days: 60 }).toISOString(),
+    };
   }
 }
