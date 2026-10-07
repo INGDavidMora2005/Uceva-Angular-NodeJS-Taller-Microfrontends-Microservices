@@ -2,57 +2,54 @@
  * @openapi
  * components:
  *   schemas:
+ *     OrderStatus:
+ *       type: string
+ *       description: Estado actual del pedido
+ *       enum:
+ *         - Pendiente
+ *         - Enviado
+ *         - Entregado
+ *         - Cancelado
+ *       example: Pendiente
  *     Order:
  *       type: object
  *       description: Representa un pedido del sistema
  *       required:
  *         - id
- *         - userId
+ *         - customer
+ *         - product
+ *         - quantity
  *         - total
+ *         - status
+ *         - createdAt
  *       properties:
  *         id:
- *           type: number
+ *           type: integer
  *           example: 1
- *         userId:
- *           type: number
- *           example: 101
+ *         customer:
+ *           type: string
+ *           example: Juan Pérez
+ *         product:
+ *           type: string
+ *           example: Laptop Gamer
+ *         quantity:
+ *           type: integer
+ *           example: 2
  *         total:
  *           type: number
- *           example: 150000
- *         products:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/Product'
- *           description: Lista de productos en el pedido (uses Product schema)
- *       createdAt:
- *         type: string
- *         format: date-time
- *         example: '2024-01-15T10:30:00Z'
- *     Product:
+ *           example: 5000.50
+ *         status:
+ *           $ref: '#/components/schemas/OrderStatus'
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: '2024-01-15T10:30:00Z'
+ *     Error:
  *       type: object
- *       description: Representa un producto del sistema
- *       required:
- *         - id
- *         - name
- *         - category
- *         - price
+ *       description: Objeto de error estandarizado
  *       properties:
- *         id:
- *           type: number
- *           example: 1
- *         name:
+ *         error:
  *           type: string
- *           example: Leche entera
- *         category:
- *           type: string
- *           enum:
- *             - Lacteos
- *             - Carnes
- *             - Frutas
- *             - Verduras
- *           example: Lacteos
- *         price:
- *           type: number
- *           example: 4500
+ *           example: 'Mensaje de error descriptivo'
  */
 export {};

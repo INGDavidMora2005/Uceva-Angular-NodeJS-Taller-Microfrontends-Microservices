@@ -21,7 +21,7 @@ export class OrdersRoutes {
      *         schema:
      *           type: integer
      *           minimum: 1
-     *           example: 10
+     *           example: 5
      *         description: Cantidad de pedidos a generar
      *     responses:
      *       200:
@@ -34,6 +34,16 @@ export class OrdersRoutes {
      *                 $ref: '#/components/schemas/Order'
      *       400:
      *         description: Parámetro inválido
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
+     *       500:
+     *         description: Error interno del servidor
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Error'
      */
     router.get("/:countOrders", controller.getAllOrders);
 
