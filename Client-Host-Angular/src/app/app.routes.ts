@@ -17,6 +17,7 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
  * @see {@link ProductsPage}
  * @see {@link OrdersPage}
  * @see {@link CoursesPage}
+ * @see {@link EventsPage}
  */
 export const routes: Routes = [
 
@@ -83,6 +84,22 @@ export const routes: Routes = [
                 remoteEntry: 'http://localhost:4204/remoteEntry.js',
                 exposedModule: './CoursesPage',
         }).then(m => m.CoursesPage),
+    },
+  /**
+   * Ruta de eventos.
+   *
+   * @remarks
+   * Renderiza el componente `EventsPage`, encargado
+   * de mostrar y gestionar el listado de eventos.
+   */
+  {
+        path: 'events',
+        loadComponent: () =>
+            loadRemoteModule({
+                type: 'module',
+                remoteEntry: 'http://localhost:4205/remoteEntry.js',
+                exposedModule: './EventsPage',
+        }).then(m => m.EventsPage),
     },
 
   /**
