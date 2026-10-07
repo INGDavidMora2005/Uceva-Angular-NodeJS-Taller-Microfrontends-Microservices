@@ -45,7 +45,7 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 #### Microservice-Products-NodeJS
 - Corriendo en: ```http://localhost:3002```
 - Swagger API Docs: ```http://localhost:3002/api/docs```
-- API Products: ```http://localhost:3002/api/users/{countProducts}```
+- API Products: ```http://localhost:3002/api/products/{countProducts}```
 
 #### Microfrontend-Users-Angular
 - Corriendo en: ```http://localhost:4201```
