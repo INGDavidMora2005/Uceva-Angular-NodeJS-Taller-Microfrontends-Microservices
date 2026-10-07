@@ -1,50 +1,47 @@
 /**
- * Interfaz que representa un pedido.
- *
- * Contiene la información básica necesaria para mostrar un pedido
- * en la tabla o en cualquier componente de listado.
+ * Tipo que define los estados posibles de un pedido.
  *
  * @remarks
- * Cada pedido debe tener un `id` único, un `userId` del usuario,
- * un `total` en pesos colombianos, opcionalmente lista de productos
- * y fecha de creación.
+ * Se utiliza para rastrear el ciclo de vida de la orden desde su creación hasta la entrega o cancelación.
+ */
+export type OrderStatus = 'Pendiente' | 'Enviado' | 'Entregado' | 'Cancelado';
+
+/**
+ * Interfaz que representa un pedido en el sistema.
+ *
+ * Contiene la información básica de la transacción, el cliente, el producto
+ * y el estado actual del envío.
+ *
+ * @remarks
+ * Cada pedido debe tener un identificador único, la información del cliente,
+ * la cantidad solicitada, el monto total y la fecha de creación en formato ISO.
  *
  * @example
  * ```ts
- * const pedido: Order = {
+ * const orden: Order = {
  *   id: 1,
- *   userId: 101,
- *   total: 150000,
- *   products: [
- *     { id: 1, name: 'Leche entera', category: 'Lacteos', price: 4500 },
- *     { id: 2, name: 'Carne', category: 'Carnes', price: 25000 }
- *   ],
+ *   customer: 'Juan Pérez',
+ *   product: 'Laptop Gamer',
+ *   quantity: 1,
+ *   total: 2500.50,
+ *   status: 'Pendiente',
  *   createdAt: new Date().toISOString()
  * };
  * ```
  */
 export interface Order {
-    /** Identificador único del pedido */
-    id: number;
-
-    /** ID del usuario que realizó el pedido */
-    userId: number;
-
-    /** Total del pedido en pesos */
-    total: number;
-
-    /** Lista de productos en el pedido (usa schema Product de Swagger) */
-    products?: Array<{
-        id: number;
-        name: string;
-        category: string;
-        price: number;
-    }>;
-
-    /** Fecha de creación del pedido */
-    createdAt: string;
+  /** Identificador único del pedido */
+  id: number;
+  /** Nombre completo del cliente que realizó el pedido */
+  customer: string;
+  /** Nombre del producto solicitado */
+  product: string;
+  /** Cantidad de unidades del producto */
+  quantity: number;
+  /** Monto total del pedido (cantidad x precio unitario) */
+  total: number;
+  /** Estado actual del pedido */
+  status: OrderStatus;
+  /** Fecha de creación del pedido en formato ISO string */
+  createdAt: string;
 }
-
-// TODO(orders): reemplazar por modelo Order completo con tipado estricto
-// Por ahora usa Product temporalmente para compatibilidad con Faker
-import { Product, ProductCategory } from './product.interface';
