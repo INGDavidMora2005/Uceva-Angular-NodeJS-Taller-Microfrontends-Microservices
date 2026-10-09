@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Course, CourseStatus } from '../../../domain/interfaces/course.interface';
+import { Course, CourseModality } from '../../domain/interfaces/course.interface';
 
 /**
  * Servicio encargado de la generación y gestión de cursos.
@@ -38,24 +38,19 @@ export class CoursesService {
    * @returns Course generado
    */
   private generateCourse(id: number): Course {
-    const quantity = faker.number.int({ min: 1, max: 10 });
-    const unitPrice = Number(faker.commerce.price({ min: 10, max: 500, dec: 2 }));
-    const total = Number((quantity * unitPrice).toFixed(2));
-    const status = faker.helpers.arrayElement<CourseStatus>([
-      'Pendiente',
-      'Enviado',
-      'Entregado',
-      'Cancelado',
+    const modality = faker.helpers.arrayElement<CourseModality>([
+      'Presencial',
+      'Virtual',
+      'Hibrido',
     ]);
 
     return {
       id,
-      customer: faker.person.fullName(),
-      product: faker.commerce.productName(),
-      quantity,
-      total,
-      status,
-      createdAt: faker.date.recent({ days: 60 }).toISOString(),
+      name: faker.lorem.words(3),
+      teacher: faker.person.fullName(),
+      credits: faker.number.int({ min: 1, max: 5 }),
+      semester: faker.number.int({ min: 1, max: 10 }),
+      modality,
     };
   }
 }
