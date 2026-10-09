@@ -33,7 +33,7 @@ export const swaggerSpec = swaggerJsdoc({
     ],
   },
   apis: [
-    './src/presentation/modules/**/*.routes.ts', // donde están tus comentarios
+    './src/presentation/**/*.routes.ts', // donde están tus comentarios
     './src/config/swagger.schemas.ts', // donde están los schemas
   ],
 });
