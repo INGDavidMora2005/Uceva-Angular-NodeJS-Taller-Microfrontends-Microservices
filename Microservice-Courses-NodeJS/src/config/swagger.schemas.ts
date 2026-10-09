@@ -2,48 +2,43 @@
  * @openapi
  * components:
  *   schemas:
- *     CourseStatus:
- *       type: string
- *       description: Estado actual del curso
- *       enum:
- *         - Pendiente
- *         - Enviado
- *         - Entregado
- *         - Cancelado
- *       example: Pendiente
  *     Course:
  *       type: object
  *       description: Representa un curso del sistema
  *       required:
  *         - id
- *         - customer
- *         - product
- *         - quantity
- *         - total
- *         - status
- *         - createdAt
+ *         - name
+ *         - teacher
+ *         - credits
+ *         - semester
+ *         - modality
  *       properties:
  *         id:
  *           type: integer
  *           example: 1
- *         customer:
+ *         name:
+ *           type: string
+ *           example: Matemáticas
+ *         teacher:
  *           type: string
  *           example: Juan Pérez
- *         product:
- *           type: string
- *           example: Laptop Gamer
- *         quantity:
+ *         credits:
  *           type: integer
- *           example: 2
- *         total:
- *           type: number
- *           example: 5000.50
- *         status:
- *           $ref: '#/components/schemas/CourseStatus'
- *         createdAt:
+ *           minimum: 1
+ *           maximum: 5
+ *           example: 4
+ *         semester:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 10
+ *           example: 3
+ *         modality:
  *           type: string
- *           format: date-time
- *           example: '2024-01-15T10:30:00Z'
+ *           enum:
+ *             - Presencial
+ *             - Virtual
+ *             - Hibrido
+ *           example: Presencial
  *     Error:
  *       type: object
  *       description: Objeto de error estandarizado
