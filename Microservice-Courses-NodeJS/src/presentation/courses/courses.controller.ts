@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CustomError } from "../../../domain/erros/custom.error";
-import { HandleError } from "../../../domain/erros/handle.error";
+import { CustomError } from "../../domain/erros/custom.error";
+import { HandleError } from "../../domain/erros/handle.error";
 import { CoursesService } from "./courses.service";
 
 /**
