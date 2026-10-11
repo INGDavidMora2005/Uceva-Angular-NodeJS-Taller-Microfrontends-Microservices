@@ -1,35 +1,32 @@
 import { Component, Input } from '@angular/core';
-import { Order, OrderStatus } from '../../interfaces/orders.interface';
 import { BadgeAtom, BadgeType } from '@brejcha13320/design-system-bootstrap';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { Course, CourseModality } from '../../interfaces/courses.interface';
 
 /**
- * Tabla de pedidos reutilizable.
+ * Tabla de cursos reutilizable.
  *
  * @description
- * Muestra una tabla con la información de una lista de pedidos.
+ * Muestra una tabla con la información de una lista de cursos.
  * La tabla se adapta a los motores de Bootstrap y se mantiene en sincronía con
  * el diseño de la base.
  *
  * @remarks
  * El componente es *standalone* y no requiere que el módulo consumidor lo
  * declare. Solo necesita que se importen las dependencias del Design
- * System correspondientes (BadgeAtom), junto a los pipes que se usarán
- * en la plantilla.
+ * System correspondientes (BadgeAtom).
  *
  * @example
  * ```ts
- * const appComp = TestBed.createComponent(OrdersTableComponent);
+ * const appComp = TestBed.createComponent(CoursesTableComponent);
  * const component = appComp.componentInstance;
- * component.orders = [
+ * component.courses = [
  *   {
  *     id: 1,
- *     customer: 'Cliente A',
- *     product: 'Producto X',
- *     quantity: 2,
- *     total: 200000,
- *     status: 'Pendiente',
- *     createdAt: '2024-10-07T10:00:00Z'
+ *     name: 'Matemáticas',
+ *     teacher: 'Juan Pérez',
+ *     credits: 4,
+ *     semester: 3,
+ *     modality: 'Presencial'
  *   }
  * ];
  * fixture.detectChanges();
@@ -38,30 +35,29 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
  * @type "standalone"
  */
 @Component({
-  selector: 'app-orders-table',
+  selector: 'app-courses-table',
   standalone: true,
-  imports: [BadgeAtom, CurrencyPipe, DatePipe],
-  templateUrl: './orders-table.component.html'
+  imports: [BadgeAtom],
+  templateUrl: './courses-table.component.html'
 })
-export class OrdersTableComponent {
+export class CoursesTableComponent {
   /**
-   * Lista de pedidos a mostrar.
+   * Lista de cursos a mostrar.
    *
    * @remarks
    * Si se pasa una lista vacía el cuerpo de la tabla mostrará 0 filas. El
    * componente no hace ninguna validación extra.
    */
-  @Input() orders: Order[] = [];
+  @Input() courses: Course[] = [];
 
   /**
-   * Mapa de colores de Badge según el estado del pedido.
+   * Mapa de colores de Badge según la modalidad del curso.
    *
    * @internal
    */
-  statusMap: Record<OrderStatus, BadgeType> = {
-    'Pendiente': 'warning' as BadgeType,
-    'Enviado': 'primary' as BadgeType,
-    'Entregado': 'success' as BadgeType,
-    'Cancelado': 'danger' as BadgeType
+  modalityMap: Record<CourseModality, BadgeType> = {
+    'Presencial': 'primary' as BadgeType,
+    'Virtual': 'success' as BadgeType,
+    'Hibrido': 'warning' as BadgeType
   };
 }
