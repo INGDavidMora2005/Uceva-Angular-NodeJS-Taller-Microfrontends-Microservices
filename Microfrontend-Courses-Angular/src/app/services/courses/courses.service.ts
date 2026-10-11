@@ -1,27 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Order } from '../../interfaces/orders.interface';
+import { Course } from '../../interfaces/courses.interface';
 
 /**
- * Servicio encargado de la gestión de pedidos.
+ * Servicio encargado de la gestión de cursos.
  *
- * Proporciona métodos para obtener información de pedidos
- * desde la API REST.
+ * Proporciona métodos para obtener información de cursos
+ * desde la API REST del microservicio de cursos.
  *
  * @example
  * ```ts
- * constructor(private ordersService: OrdersService) {}
+ * constructor(private coursesService: CoursesService) {}
  *
- * this.ordersService.getAllOrders(10).subscribe(orders => {
- *   console.log(orders);
+ * this.coursesService.getAllCourses(10).subscribe(courses => {
+ *   console.log(courses);
  * });
  * ```
  */
 @Injectable({
   providedIn: 'root',
 })
-export class OrdersService {
+export class CoursesService {
 
   /**
    * Cliente HTTP de Angular para realizar peticiones a la API.
@@ -30,19 +30,19 @@ export class OrdersService {
   private httpClient = inject(HttpClient);
 
   /**
-   * Obtiene una lista de pedidos desde el backend.
+   * Obtiene una lista de cursos desde el backend.
    *
-   * @param countOrders Número de pedidos a obtener.
-   * @returns Observable que emite un array de pedidos.
+   * @param countCourses Número de cursos a obtener.
+   * @returns Observable que emite un array de cursos.
    *
    * @example
    * ```ts
-   * this.ordersService.getAllOrders(5).subscribe(orders => {
-   *   console.log(orders);
+   * this.coursesService.getAllCourses(5).subscribe(courses => {
+   *   console.log(courses);
    * });
    * ```
    */
-  getAllOrders(countOrders: number): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`http://localhost:3003/api/orders/${countOrders}`);
+  getAllCourses(countCourses: number): Observable<Course[]> {
+    return this.httpClient.get<Course[]>(`http://localhost:3004/api/courses/${countCourses}`);
   }
 }
