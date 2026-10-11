@@ -65,6 +65,30 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 - Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm run start```
 
 
+## 🔌 Puertos y verificación
+
+| Vertical | MF (puerto / remote / módulo) | MS (puerto / endpoint / Swagger) |
+|---|---|---|
+| Users | 4201 · mf-users · `./UsersPage` | 3001 · `/api/users/{n}` · `/api/docs` |
+| Products | 4202 · mf-products · `./ProductsPage` | 3002 · `/api/products/{n}` · `/api/docs` |
+| Orders | 4203 · mf-orders · `./OrdersPage` | 3003 · `/api/orders/{n}` · `/api/docs` |
+| Courses | 4204 · mf-courses · `./CoursesPage` | 3004 · `/api/courses/{n}` · `/api/docs` |
+| Events | 4205 · mf-events · `./EventsPage` | 3005 · `/api/events/{n}` · `/api/docs` |
+
+**Línea de verificación por servicio (PowerShell):**
+
+```powershell
+# Microservicios (200 OK, 400 si el parámetro es inválido)
+foreach ($v in 'users','products','orders','courses','events') {
+  $port = switch ($v) { 'users' {3001} 'products' {3002} 'orders' {3003} 'courses' {3004} 'events' {3005} }
+  $code = curl.exe -s -o NUL -w "%{http_code}" "http://localhost:$port/api/$v/5"
+  "/api/$v/5 -> $code"
+}
+
+# Microfrontends (el remoteEntry.js debe contener el remote name y el módulo expuesto)
+curl.exe -s http://localhost:4204/remoteEntry.js | Select-String -Pattern 'mf-courses|CoursesPage'
+```
+
 ### 3️⃣ Verificar Funcionamiento de Proyectos
 
 #### Microservice-Users-NodeJS
