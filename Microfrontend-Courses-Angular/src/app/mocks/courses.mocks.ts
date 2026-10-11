@@ -1,40 +1,51 @@
-import { Order } from "../interfaces/orders.interface";
+import { Course, CourseModality } from "../interfaces/courses.interface";
 
-export const ORDERS_MOCK: Order[] = [
+/**
+ * Datos simulados de cursos para fines de demostración y pruebas.
+ *
+ * @remarks
+ * Arbol de 4 cursos que cubre las 3 modalidades (`CourseModality`):
+ * Presencial, Virtual e Hibrido. Se utiliza como fuente estática
+ * mientras no se consume el microservicio real.
+ *
+ * @example
+ * ```ts
+ * import { COURSES_MOCK } from './courses.mocks';
+ *
+ * const cursos = COURSES_MOCK;
+ * ```
+ */
+export const COURSES_MOCK: Course[] = [
   {
     id: 1,
-    customer: 'Juan Perez',
-    product: 'Laptop Lenovo ThinkPad',
-    quantity: 1,
-    total: 2500000,
-    status: 'Pendiente',
-    createdAt: '2026-03-01T10:00:00.000Z'
+    name: 'Matemáticas',
+    teacher: 'Juan Pérez',
+    credits: 4,
+    semester: 3,
+    modality: 'Presencial',
   },
   {
     id: 2,
-    customer: 'Maria Gomez',
-    product: 'Monitor Samsung 27"',
-    quantity: 2,
-    total: 1600000,
-    status: 'Enviado',
-    createdAt: '2026-03-02T14:30:00.000Z'
+    name: 'Programación',
+    teacher: 'María Gómez',
+    credits: 5,
+    semester: 2,
+    modality: 'Virtual',
   },
   {
     id: 3,
-    customer: 'Carlos Lopez',
-    product: 'Teclado Mecánico RGB',
-    quantity: 3,
-    total: 450000,
-    status: 'Entregado',
-    createdAt: '2026-03-03T18:45:00.000Z'
+    name: 'Base de Datos',
+    teacher: 'Carlos López',
+    credits: 3,
+    semester: 4,
+    modality: 'Hibrido',
   },
   {
     id: 4,
-    customer: 'Laura Torres',
-    product: 'Mouse Ergonómico',
-    quantity: 1,
-    total: 120000,
-    status: 'Cancelado',
-    createdAt: '2026-03-04T08:15:00.000Z'
-  }
+    name: 'Redes',
+    teacher: 'Laura Torres',
+    credits: 2,
+    semester: 5,
+    modality: 'Presencial',
+  },
 ];

@@ -1,64 +1,59 @@
 /**
- * Representa el estado de un pedido en el sistema.
+ * Tipo que define las modalidades posibles de un curso.
  *
  * @remarks
- * Este tipo restringe los estados posibles de un pedido a:
- * - 'Pendiente'
- * - 'Enviado'
- * - 'Entregado'
- * - 'Cancelado'
+ * Este tipo restringe las modalidades de un curso a:
+ * - 'Presencial'
+ * - 'Virtual'
+ * - 'Hibrido'
  *
- * Se utiliza para gestionar el flujo de vida de un pedido.
+ * Se utiliza para clasificar la forma de entrega del curso.
  *
  * @example
  * ```ts
- * const estado: OrderStatus = 'Pendiente';
+ * const modalidad: CourseModality = 'Presencial';
  * ```
  */
-export type OrderStatus = 'Pendiente' | 'Enviado' | 'Entregado' | 'Cancelado';
+export type CourseModality = 'Presencial' | 'Virtual' | 'Hibrido';
 
 /**
- * Interfaz que representa un pedido del sistema.
+ * Interfaz que representa un curso del sistema.
  *
- * Contiene la información básica necesaria para mostrar un pedido
+ * Contiene la información básica necesaria para mostrar un curso
  * en la tabla o en cualquier componente de listado.
  *
  * @remarks
- * Cada pedido debe tener un `id` único, un `customer`, un `product`,
- * la `quantity`, el `total`, el `status` actual y la fecha de creación.
+ * Cada curso debe tener un `id` único, un `name`, un `teacher`,
+ * la cantidad de `credits`, el `semester` y la `modality` actual.
  *
  * @example
  * ```ts
- * const pedido: Order = {
+ * const curso: Course = {
  *   id: 1,
- *   customer: 'Juan Pérez',
- *   product: 'Laptop',
- *   quantity: 1,
- *   total: 1500000,
- *   status: 'Pendiente',
- *   createdAt: new Date().toISOString()
+ *   name: 'Matemáticas',
+ *   teacher: 'Juan Pérez',
+ *   credits: 4,
+ *   semester: 3,
+ *   modality: 'Presencial'
  * };
  * ```
  */
-export interface Order {
-  /** Identificador único del pedido */
+export interface Course {
+  /** Identificador único del curso */
   id: number;
 
-  /** Nombre del cliente que realiza el pedido */
-  customer: string;
+  /** Nombre del curso */
+  name: string;
 
-  /** Nombre del producto pedido */
-  product: string;
+  /** Nombre del profesor a cargo */
+  teacher: string;
 
-  /** Cantidad de productos pedidos */
-  quantity: number;
+  /** Créditos del curso (1 a 5) */
+  credits: number;
 
-  /** Total del pedido */
-  total: number;
+  /** Semestre del curso (1 a 10) */
+  semester: number;
 
-  /** Estado actual del pedido */
-  status: OrderStatus;
-
-  /** Fecha de creación del pedido */
-  createdAt: string;
+  /** Modalidad del curso */
+  modality: CourseModality;
 }
