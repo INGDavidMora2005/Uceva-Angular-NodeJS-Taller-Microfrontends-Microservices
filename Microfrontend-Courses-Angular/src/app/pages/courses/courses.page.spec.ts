@@ -1,34 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OrdersPage } from './orders.page';
-import { OrdersTableComponent } from '../../components/orders-table/orders-table.component';
+import { CoursesPage } from './courses.page';
+import { CoursesTableComponent } from '../../components/courses-table/courses-table.component';
 import { AlertComponent } from '../../components/alert/alert.component';
-import { OrdersService } from '../../services/orders/orders.service';
+import { CoursesService } from '../../services/courses/courses.service';
 import { By } from '@angular/platform-browser';
-import { ORDERS_MOCK } from '../../mocks/orders.mocks';
+import { COURSES_MOCK } from '../../mocks/courses.mocks';
+import { Course } from '../../interfaces/courses.interface';
 import { of, Subject, throwError } from 'rxjs';
-import { Order } from '../../interfaces/orders.interface';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-describe('OrdersPage', () => {
-  let component: OrdersPage;
-  let fixture: ComponentFixture<OrdersPage>;
-  let ordersServiceMock: any;
+describe('CoursesPage', () => {
+  let component: CoursesPage;
+  let fixture: ComponentFixture<CoursesPage>;
+  let coursesServiceMock: Partial<CoursesService>;
 
   beforeEach(async () => {
-    ordersServiceMock = {
-      getAllOrders: jest.fn()
+    coursesServiceMock = {
+      getAllCourses: jest.fn()
     };
 
     await TestBed.configureTestingModule({
-      imports: [OrdersPage, OrdersTableComponent, AlertComponent],
+      imports: [CoursesPage, CoursesTableComponent, AlertComponent],
       providers: [
-        { provide: OrdersService, useValue: ordersServiceMock },
+        { provide: CoursesService, useValue: coursesServiceMock },
         provideHttpClientTesting()
       ],
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrdersPage);
+    fixture = TestBed.createComponent(CoursesPage);
     component = fixture.componentInstance;
   });
 
@@ -40,41 +40,47 @@ describe('OrdersPage', () => {
     expect(component.state).toBe('init');
   });
 
-  it('calls getAllOrders with 10 on ngOnInit', () => {
-    ordersServiceMock.getAllOrders.mockReturnValue(of([]));
-    fixture.detectChanges();
-    expect(ordersServiceMock.getAllOrders).toHaveBeenCalledWith(10);
+  it('init state renders nothing', () => {
+    expect(component.state).toBe('init');
+    expect(fixture.nativeElement.querySelector('app-alert')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-courses-table')).toBeNull();
   });
 
-  it('on success, assigns orders and state success', () => {
-    ordersServiceMock.getAllOrders.mockReturnValue(of(ORDERS_MOCK));
+  it('calls getAllCourses with 10 on ngOnInit', () => {
+    coursesServiceMock.getAllCourses!.mockReturnValue(of([]));
     fixture.detectChanges();
-    expect(component.orders).toEqual(ORDERS_MOCK);
+    expect(coursesServiceMock.getAllCourses).toHaveBeenCalledWith(10);
+  });
+
+  it('on success, assigns courses and state success', () => {
+    coursesServiceMock.getAllCourses!.mockReturnValue(of(COURSES_MOCK));
+    fixture.detectChanges();
+    expect(component.courses).toEqual(COURSES_MOCK);
     expect(component.state).toBe('success');
   });
 
-  it('renders app-orders-table with orders on success', () => {
-    ordersServiceMock.getAllOrders.mockReturnValue(of(ORDERS_MOCK));
+  it('renders app-courses-table with courses on success', () => {
+    coursesServiceMock.getAllCourses!.mockReturnValue(of(COURSES_MOCK));
     fixture.detectChanges();
-    const tableEl = fixture.debugElement.query(By.directive(OrdersTableComponent));
+    const tableEl = fixture.debugElement.query(By.directive(CoursesTableComponent));
     expect(tableEl).toBeTruthy();
     const instance = tableEl.componentInstance;
-    expect(instance.orders).toEqual(ORDERS_MOCK);
+    expect(instance.courses).toEqual(COURSES_MOCK);
     expect(fixture.debugElement.query(By.directive(AlertComponent))).toBeFalsy();
   });
 
   it('loading state renders alert correctly', () => {
-    const subject = new Subject<Order[]>();
-    ordersServiceMock.getAllOrders.mockReturnValue(subject);
+    const subject = new Subject<Course[]>();
+    coursesServiceMock.getAllCourses!.mockReturnValue(subject);
     fixture.detectChanges();
     expect(component.state).toBe('loading');
     const alertEl = fixture.debugElement.query(By.directive(AlertComponent));
     expect(alertEl).toBeTruthy();
     const alertInstance = alertEl.componentInstance;
     expect(alertInstance.alertState).toBe('loading');
-    expect(alertInstance.text).toBe('Cargando pedidos...');
-    expect(fixture.debugElement.query(By.directive(OrdersTableComponent))).toBeFalsy();
-    subject.next(ORDERS_MOCK);
+    expect(alertInstance.text).toBe('Cargando cursos...');
+    expect(fixture.debugElement.query(By.directive(CoursesTableComponent))).toBeFalsy();
+    subject.next(COURSES_MOCK);
     subject.complete();
     fixture.detectChanges();
     expect(component.state).toBe('success');
@@ -82,18 +88,18 @@ describe('OrdersPage', () => {
 
   it('error state renders alert correctly', () => {
     const error = new Error('timeout');
-    ordersServiceMock.getAllOrders.mockReturnValue(throwError(() => error));
+    coursesServiceMock.getAllCourses!.mockReturnValue(throwError(() => error));
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     fixture.detectChanges();
     expect(consoleSpy).toHaveBeenCalledWith(error);
     expect(component.state).toBe('error');
-    expect(component.orders).toEqual([]);
+    expect(component.courses).toEqual([]);
     const alertEl = fixture.debugElement.query(By.directive(AlertComponent));
     expect(alertEl).toBeTruthy();
     const alertInstance = alertEl.componentInstance;
     expect(alertInstance.alertState).toBe('error');
-    expect(alertInstance.text).toBe('Error al cargar los pedidos');
-    expect(fixture.debugElement.query(By.directive(OrdersTableComponent))).toBeFalsy();
+    expect(alertInstance.text).toBe('Error al cargar los cursos');
+    expect(fixture.debugElement.query(By.directive(CoursesTableComponent))).toBeFalsy();
     consoleSpy.mockRestore();
   });
 });
