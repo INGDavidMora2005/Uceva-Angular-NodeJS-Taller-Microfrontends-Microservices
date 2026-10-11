@@ -1,30 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { OrdersTableComponent } from '../../components/orders-table/orders-table.component';
+import { CoursesTableComponent } from '../../components/courses-table/courses-table.component';
 import { AlertComponent } from '../../components/alert/alert.component';
-import { Order } from '../../interfaces/orders.interface';
+import { Course } from '../../interfaces/courses.interface';
 import { State } from '../../interfaces/state.interface';
-import { OrdersService } from '../../services/orders/orders.service';
+import { CoursesService } from '../../services/courses/courses.service';
 
 /**
- * Componente página de pedidos.
+ * Componente página de cursos.
  *
  * @description
- * Gestiona la carga y visualización de la lista de pedidos.
+ * Gestiona la carga y visualización de la lista de cursos.
  *
  * @remarks
- * Consume `OrdersService` para obtener los datos y utiliza
- * `OrdersTableComponent` para mostrarlos en una tabla.
+ * Consume `CoursesService` para obtener los datos y utiliza
+ * `CoursesTableComponent` para mostrarlos en una tabla.
  */
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.page.html',
-  imports: [OrdersTableComponent, AlertComponent],
+  selector: 'app-courses',
+  templateUrl: './courses.page.html',
+  imports: [CoursesTableComponent, AlertComponent],
 })
-export class OrdersPage implements OnInit {
+export class CoursesPage implements OnInit {
   /**
-   * Listado de pedidos a mostrar.
+   * Listado de cursos a mostrar.
    */
-  orders: Order[] = [];
+  courses: Course[] = [];
 
   /**
    * Estado actual del componente.
@@ -33,23 +33,23 @@ export class OrdersPage implements OnInit {
   state: State = 'init';
 
   /**
-   * Servicio para obtener pedidos.
+   * Servicio para obtener cursos.
    */
-  private ordersService = inject(OrdersService);
+  private coursesService = inject(CoursesService);
 
   /**
-   * Cantidad de pedidos a solicitar.
+   * Cantidad de cursos a solicitar.
    */
-  private readonly ordersCount = 10;
+  private readonly coursesCount = 10;
 
   /**
-   * Inicializa la carga de pedidos.
+   * Inicializa la carga de cursos.
    */
   ngOnInit(): void {
     this.state = 'loading';
-    this.ordersService.getAllOrders(this.ordersCount).subscribe({
-      next: (orders) => {
-        this.orders = orders;
+    this.coursesService.getAllCourses(this.coursesCount).subscribe({
+      next: (courses) => {
+        this.courses = courses;
         this.state = 'success';
       },
       error: (error) => {

@@ -12,15 +12,15 @@ import { Routes } from '@angular/router';
  * - Rutas de navegación principales
  * - Redirección por defecto para rutas no existentes
  *
- * @see {@link OrdersPage}
+ * @see {@link CoursesPage}
  */
 export const routes: Routes = [
   /**
-   * Ruta de pedidos.
+   * Ruta de cursos.
    *
    * @remarks
-   * Renderiza el componente `OrdersPage`, encargado
-   * de mostrar y gestionar el listado de pedidos.
+   * Renderiza el componente `CoursesPage`, encargado
+   * de mostrar y gestionar el listado de cursos.
    */
-  { path: '', loadComponent: () => import('./pages/orders/orders.page').then((m) => m.OrdersPage)},
+  { path: '', loadComponent: () => import('./pages/courses/courses.page').then((m) => m.CoursesPage)},
 ];
