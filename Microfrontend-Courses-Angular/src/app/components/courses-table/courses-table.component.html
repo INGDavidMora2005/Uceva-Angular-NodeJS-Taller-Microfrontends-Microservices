@@ -1,0 +1,29 @@
+<table class="table table-striped border">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Profesor</th>
+      <th scope="col">Créditos</th>
+      <th scope="col">Semestre</th>
+      <th scope="col">Modalidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (course of courses; track course.id) {
+      <tr>
+        <th scope="row">{{ course.id }}</th>
+        <td>{{ course.name }}</td>
+        <td>{{ course.teacher }}</td>
+        <td>{{ course.credits }}</td>
+        <td>{{ course.semester }}</td>
+        <td>
+          <dsb-badge-atom
+            [text]="course.modality"
+            [type]="modalityMap[course.modality]"
+          ></dsb-badge-atom>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

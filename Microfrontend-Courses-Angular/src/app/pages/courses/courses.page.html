@@ -1,0 +1,11 @@
+@switch(state) {
+  @case ('loading') {
+    <app-alert alertState="loading" text="Cargando cursos..."></app-alert>
+  }
+  @case ('error') {
+    <app-alert alertState="error" text="Error al cargar los cursos"></app-alert>
+  }
+  @case ('success') {
+    <app-courses-table [courses]="courses"></app-courses-table>
+  }
+}
