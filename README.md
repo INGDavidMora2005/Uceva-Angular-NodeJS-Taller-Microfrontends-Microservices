@@ -124,6 +124,40 @@ foreach ($v in 'users','products','orders','courses','events') {
 curl.exe -s http://localhost:4204/remoteEntry.js | Select-String -Pattern 'mf-courses|CoursesPage'
 ```
 
+## 🧪 Pruebas y documentación
+
+### Microfrontends (5 MF)
+
+En cada carpeta de microfrontend (Users, Products, Orders, Courses, Events):
+
+```powershell
+# Tests unitarios con cobertura (meta: >90% en statements, branches, functions, lines)
+npm run test:coverage
+
+# Documentación con Compodoc (genera la carpeta documentation/)
+npm run compodoc
+```
+
+Comando de verificación de Compodoc (ejemplo para Courses):
+
+```powershell
+npx compodoc -p tsconfig.doc.json --coverageTest 90
+```
+
+### Microservicios (5 MS)
+
+Cada microservicio documenta sus endpoints con **Swagger/OpenAPI**. Abre la URL de cada uno:
+
+| Microservicio | Swagger |
+|---|---|
+| Users | `http://localhost:3001/api/docs` |
+| Products | `http://localhost:3002/api/docs` |
+| Orders | `http://localhost:3003/api/docs` |
+| Courses | `http://localhost:3004/api/docs` |
+| Events | `http://localhost:3005/api/docs` |
+
+Verifica que en cada Swagger aparezca solo el schema y endpoint de esa vertical (por ejemplo, en Courses: schema `Course` y endpoint `/api/courses/{countCourses}`, tag `Courses`).
+
 ### 3️⃣ Verificar Funcionamiento de Proyectos
 
 #### Microservice-Users-NodeJS
