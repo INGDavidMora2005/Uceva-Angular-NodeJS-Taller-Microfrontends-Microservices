@@ -180,3 +180,19 @@ Verifica que en cada Swagger aparezca solo el schema y endpoint de esa vertical 
 
 #### Client-Host-Angular
 - Corriendo en: ```http://localhost:4200```
+
+## ⚠️ Mensajes conocidos en consola
+
+Estos errores provienen del Host original y **no** de nuestra vertical; la página funciona correctamente. Documentarlos evita confundirlos con errores de nuestro código.
+
+1. **`Cannot use 'import.meta' outside a module`** en `styles.js`: viene del `publicPath` automático de webpack en el Host original; la página funciona.
+2. **Aviso «depends on '@angular-architects/module-federation'. CommonJS or AMD dependencies…»**: de la base, es solo un warning.
+3. **`ERR_CONNECTION_REFUSED … :4201/remoteEntry.js`**: el Host redirige `/` a `/users`; si el MF de Users no está levantado, falla. Para una prueba limpia, levanta todos los servicios o entra directo a la ruta de tu vertical (`/courses`, `/events`, etc.).
+
+## 👥 Equipo
+
+| Integrante | Vertical / Responsabilidad |
+|---|---|
+| **David Mora Duque** | Líder — Vertical Orders (MS 3003 + MF 4203), Host (shell + navbar + rutas), revisión de PRs, integración y prueba en clon limpio. |
+| **Juan Diego Rodríguez** | Vertical Courses (MS 3004 + MF 4204), documentación (README raíz y READMEs de proyecto), verificación de Compodoc de los 5 MF. |
+| **Juan Pablo Devia** | Vertical Events (MS 3005 + MF 4205), script/tabla de verificación de cobertura de los 5 MF, PDF de entrega. |
