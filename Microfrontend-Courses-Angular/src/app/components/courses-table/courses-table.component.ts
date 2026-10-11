@@ -56,8 +56,8 @@ export class CoursesTableComponent {
    * @internal
    */
   modalityMap: Record<CourseModality, BadgeType> = {
-    'Presencial': 'primary' as BadgeType,
-    'Virtual': 'success' as BadgeType,
-    'Hibrido': 'warning' as BadgeType
+    'Presencial': 'primary',
+    'Virtual': 'success',
+    'Hibrido': 'warning'
   };
 }
