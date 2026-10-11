@@ -49,7 +49,7 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 
 ### 1️⃣ Instalar Dependencias
 
-En cada proyecto usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modifies del árbol de dependencias. Ejecuta estos comandos en PowerShell desde la raíz del repo:
+En cada proyecto usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modificar el árbol de dependencias. Ejecuta estos comandos en PowerShell desde la raíz del repo:
 
 ```powershell
 # Microservicios (5)
@@ -157,29 +157,6 @@ Cada microservicio documenta sus endpoints con **Swagger/OpenAPI**. Abre la URL 
 | Events | `http://localhost:3005/api/docs` |
 
 Verifica que en cada Swagger aparezca solo el schema y endpoint de esa vertical (por ejemplo, en Courses: schema `Course` y endpoint `/api/courses/{countCourses}`, tag `Courses`).
-
-### 3️⃣ Verificar Funcionamiento de Proyectos
-
-#### Microservice-Users-NodeJS
-- Corriendo en: ```http://localhost:3001```
-- Swagger API Docs: ```http://localhost:3001/api/docs```
-- API Users: ```http://localhost:3001/api/users/{countUsers}```
-
-#### Microservice-Products-NodeJS
-- Corriendo en: ```http://localhost:3002```
-- Swagger API Docs: ```http://localhost:3002/api/docs```
-- API Products: ```http://localhost:3002/api/products/{countProducts}```
-
-#### Microfrontend-Users-Angular
-- Corriendo en: ```http://localhost:4201```
-- RemoteEntry: ```http://localhost:4201/remoteEntry.js```
-
-#### Microfrontend-Products-Angular
-- Corriendo en: ```http://localhost:4202```
-- RemoteEntry: ```http://localhost:4202/remoteEntry.js```
-
-#### Client-Host-Angular
-- Corriendo en: ```http://localhost:4200```
 
 ## ⚠️ Mensajes conocidos en consola
 
