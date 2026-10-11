@@ -49,20 +49,55 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 
 ### 1️⃣ Instalar Dependencias
 
-- Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm i```
+En cada proyecto usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modifies del árbol de dependencias. Ejecuta estos comandos en PowerShell desde la raíz del repo:
 
+```powershell
+# Microservicios (5)
+cd Microservice-Users-NodeJS;     npm ci
+cd Microservice-Products-NodeJS;  npm ci
+cd Microservice-Orders-NodeJS;    npm ci
+cd Microservice-Courses-NodeJS;   npm ci
+cd Microservice-Events-NodeJS;    npm ci
+
+# Microfrontends (5)
+cd Microfrontend-Users-Angular;       npm ci
+cd Microfrontend-Products-Angular;    npm ci
+cd Microfrontend-Orders-Angular;      npm ci
+cd Microfrontend-Courses-Angular;     npm ci
+cd Microfrontend-Events-Angular;      npm ci
+
+# Host
+cd Client-Host-Angular; npm ci
+```
 
 ### 2️⃣ Ejecutar los Proyectos
 
-- Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm run start```
+**Orden recomendado:** primero los **5 microservicios**, luego los **5 microfrontends** y, al final, el **Host**. Abre una terminal por proyecto (5 terminales para los MS + 5 para los MF + 1 para el Host).
+
+**Microservicios (5):**
+```powershell
+cd Microservice-Users-NodeJS;     npm start   # 3001
+cd Microservice-Products-NodeJS;  npm start   # 3002
+cd Microservice-Orders-NodeJS;    npm start   # 3003
+cd Microservice-Courses-NodeJS;   npm start   # 3004
+cd Microservice-Events-NodeJS;    npm start   # 3005
+```
+
+**Microfrontends (5):**
+```powershell
+cd Microfrontend-Users-Angular;       npm start   # 4201
+cd Microfrontend-Products-Angular;    npm start   # 4202
+cd Microfrontend-Orders-Angular;      npm start   # 4203
+cd Microfrontend-Courses-Angular;     npm start   # 4204
+cd Microfrontend-Events-Angular;      npm start   # 4205
+```
+
+**Host:**
+```powershell
+cd Client-Host-Angular; npm start   # 4200
+```
+
+Abre `http://localhost:4200` y navega por las rutas: `/users`, `/products`, `/orders`, `/courses`, `/events`. Cada MF consume **solo** su microservicio asociado.
 
 
 ## 🔌 Puertos y verificación
