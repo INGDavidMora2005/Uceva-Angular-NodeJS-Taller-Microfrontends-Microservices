@@ -3,7 +3,37 @@
 - Este proyecto fue generado utilizando [Angular CLI](https://github.com/angular/angular-cli) 20.3.14.
 
 - El objetivo del taller es practicar la creación de 2 proyectos para representar la arquitectura
-cliente servidor, con las Tecnologias de Angular y NodeJS.
+ cliente servidor, con las Tecnologias de Angular y NodeJS.
+
+## 🏗️ Descripción del sistema
+
+Sistema distribuido compuesto por **5 microfrontends** en Angular y **5 microservicios** en NodeJS, más un **Host** (shell) que los integra mediante **Module Federation**. Cada microfrontend consume **solo** su microservicio asociado (relación 1 a 1 MF→MS). Los datos se generan con **Faker.js**, las APIs se documentan con **Swagger/OpenAPI** y los microfrontends con **Compodoc**.
+
+```
+Client-Host-Angular  :4200  (Shell + Navbar + rutas)
+        |
+        | Module Federation (remoteEntry.js) carga cada MF
+        |
+   +-----+-----+-----+-----+-----+
+   | MF  | MF  | MF  | MF  | MF  |
+   |Users|Prod.|Orde.|Cour.|Eve.|
+   |4201 |4202 |4203 |4204 |4205 |
+   +--+--+--+--+--+--+--+--+--+--+
+      | REST
+   +--+--+--+--+--+--+--+--+--+--+
+   | MS  | MS  | MS  | MS  | MS  |
+   |Users|Prod.|Orde.|Cour.|Eve.|
+   |3001 |3002 |3003 |3004 |3005 |
+   +-----+-----+-----+-----+-----+
+```
+
+| Vertical | Dueño | Carpeta MF | Puerto MF | Remote | Carpeta MS | Puerto MS | Endpoint |
+|---|---|---|---|---|---|---|---|
+| Users (base) | — | Microfrontend-Users-Angular | 4201 | mf-users | Microservice-Users-NodeJS | 3001 | `/api/users/{n}` |
+| Products (base) | — | Microfrontend-Products-Angular | 4202 | mf-products | Microservice-Products-NodeJS | 3002 | `/api/products/{n}` |
+| Orders | David | Microfrontend-Orders-Angular | 4203 | mf-orders | Microservice-Orders-NodeJS | 3003 | `/api/orders/{n}` |
+| Courses | Juan Diego | Microfrontend-Courses-Angular | 4204 | mf-courses | Microservice-Courses-NodeJS | 3004 | `/api/courses/{n}` |
+| Events | Juan Pablo | Microfrontend-Events-Angular | 4205 | mf-events | Microservice-Events-NodeJS | 3005 | `/api/events/{n}` |
 
 ## 📋 Requisitos Previos
 
