@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
  *
  * @remarks
  * Este componente actúa como punto de entrada principal
- * del microfrontend de pedidos (Orders). Define la estructura base
+ * del microfrontend de cursos (Courses). Define la estructura base
  * y renderiza las vistas según el sistema de rutas.
  *
  * Es responsable de:
