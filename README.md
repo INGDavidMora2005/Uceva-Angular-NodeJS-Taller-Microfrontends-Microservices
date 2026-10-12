@@ -47,6 +47,8 @@ Antes de iniciar, asegúrate de tener instaladas las siguientes herramientas:
 
 Puedes verificar Angular CLI en consola con: ```ng version```
 
+> **Nota sobre Node/npm:** se recomienda **Node 22 LTS** (que trae **npm 10**). Con **npm 11**, el comando `npm ci` falla en `Client-Host-Angular`, `Microfrontend-Users-Angular` y `Microfrontend-Products-Angular` por sus `package-lock.json` desactualizados. Alternativa sin cambiar de Node: usa **`npx -y npm@10 ci`** en esas carpetas en lugar de `npm ci`.
+
 ### 1️⃣ Instalar Dependencias
 
 En cada proyecto usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modificar el árbol de dependencias. Ejecuta estos comandos en PowerShell desde la raíz del repo:
