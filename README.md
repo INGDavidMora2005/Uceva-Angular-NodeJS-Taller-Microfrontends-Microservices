@@ -51,53 +51,45 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 
 ### 1️⃣ Instalar Dependencias
 
-En cada proyecto usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modificar el árbol de dependencias. Ejecuta estos comandos en PowerShell desde la raíz del repo:
+Usa **`npm ci`** (no `npm i`) para respetar el `package-lock.json` y evitar modificar el árbol de dependencias. En cada carpeta, abre una terminal y ejecuta el comando correspondiente:
 
-```powershell
-# Microservicios (5)
-cd Microservice-Users-NodeJS;     npm ci
-cd Microservice-Products-NodeJS;  npm ci
-cd Microservice-Orders-NodeJS;    npm ci
-cd Microservice-Courses-NodeJS;   npm ci
-cd Microservice-Events-NodeJS;    npm ci
+**Microservicios (5):**
+- `Microservice-Users-NodeJS` → abre una terminal en la carpeta `Microservice-Users-NodeJS` y ejecuta `npm ci`
+- `Microservice-Products-NodeJS` → abre una terminal en la carpeta `Microservice-Products-NodeJS` y ejecuta `npm ci`
+- `Microservice-Orders-NodeJS` → abre una terminal en la carpeta `Microservice-Orders-NodeJS` y ejecuta `npm ci`
+- `Microservice-Courses-NodeJS` → abre una terminal en la carpeta `Microservice-Courses-NodeJS` y ejecuta `npm ci`
+- `Microservice-Events-NodeJS` → abre una terminal en la carpeta `Microservice-Events-NodeJS` y ejecuta `npm ci`
 
-# Microfrontends (5)
-cd Microfrontend-Users-Angular;       npm ci
-cd Microfrontend-Products-Angular;    npm ci
-cd Microfrontend-Orders-Angular;      npm ci
-cd Microfrontend-Courses-Angular;     npm ci
-cd Microfrontend-Events-Angular;      npm ci
+**Microfrontends (5):**
+- `Microfrontend-Users-Angular` → abre una terminal en la carpeta `Microfrontend-Users-Angular` y ejecuta `npx -y npm@10 ci`
+- `Microfrontend-Products-Angular` → abre una terminal en la carpeta `Microfrontend-Products-Angular` y ejecuta `npx -y npm@10 ci`
+- `Microfrontend-Orders-Angular` → abre una terminal en la carpeta `Microfrontend-Orders-Angular` y ejecuta `npm ci`
+- `Microfrontend-Courses-Angular` → abre una terminal en la carpeta `Microfrontend-Courses-Angular` y ejecuta `npm ci`
+- `Microfrontend-Events-Angular` → abre una terminal en la carpeta `Microfrontend-Events-Angular` y ejecuta `npm ci`
 
-# Host
-cd Client-Host-Angular; npm ci
-```
+**Host:**
+- `Client-Host-Angular` → abre una terminal en la carpeta `Client-Host-Angular` y ejecuta `npx -y npm@10 ci`
 
 ### 2️⃣ Ejecutar los Proyectos
 
-**Orden recomendado:** primero los **5 microservicios**, luego los **5 microfrontends** y, al final, el **Host**. Abre una terminal por proyecto (5 terminales para los MS + 5 para los MF + 1 para el Host).
+**Orden recomendado:** primero los **5 microservicios**, luego los **5 microfrontends** y, al final, el **Host**. Abre una terminal por proyecto (5 terminales para los MS + 5 para los MF + 1 para el Host). En cada carpeta, ejecuta `npm start`:
 
 **Microservicios (5):**
-```powershell
-cd Microservice-Users-NodeJS;     npm start   # 3001
-cd Microservice-Products-NodeJS;  npm start   # 3002
-cd Microservice-Orders-NodeJS;    npm start   # 3003
-cd Microservice-Courses-NodeJS;   npm start   # 3004
-cd Microservice-Events-NodeJS;    npm start   # 3005
-```
+- `Microservice-Users-NodeJS` → `npm start`  (3001)
+- `Microservice-Products-NodeJS` → `npm start`  (3002)
+- `Microservice-Orders-NodeJS` → `npm start`  (3003)
+- `Microservice-Courses-NodeJS` → `npm start`  (3004)
+- `Microservice-Events-NodeJS` → `npm start`  (3005)
 
 **Microfrontends (5):**
-```powershell
-cd Microfrontend-Users-Angular;       npm start   # 4201
-cd Microfrontend-Products-Angular;    npm start   # 4202
-cd Microfrontend-Orders-Angular;      npm start   # 4203
-cd Microfrontend-Courses-Angular;     npm start   # 4204
-cd Microfrontend-Events-Angular;      npm start   # 4205
-```
+- `Microfrontend-Users-Angular` → `npm start`  (4201)
+- `Microfrontend-Products-Angular` → `npm start`  (4202)
+- `Microfrontend-Orders-Angular` → `npm start`  (4203)
+- `Microfrontend-Courses-Angular` → `npm start`  (4204)
+- `Microfrontend-Events-Angular` → `npm start`  (4205)
 
 **Host:**
-```powershell
-cd Client-Host-Angular; npm start   # 4200
-```
+- `Client-Host-Angular` → `npm start`  (4200)
 
 Abre `http://localhost:4200` y navega por las rutas: `/users`, `/products`, `/orders`, `/courses`, `/events`. Cada MF consume **solo** su microservicio asociado.
 
@@ -167,6 +159,8 @@ Estos errores provienen del Host original y **no** de nuestra vertical; la pági
 1. **`Cannot use 'import.meta' outside a module`** en `styles.js`: viene del `publicPath` automático de webpack en el Host original; la página funciona.
 2. **Aviso «depends on '@angular-architects/module-federation'. CommonJS or AMD dependencies…»**: de la base, es solo un warning.
 3. **`ERR_CONNECTION_REFUSED … :4201/remoteEntry.js`**: el Host redirige `/` a `/users`; si el MF de Users no está levantado, falla. Para una prueba limpia, levanta todos los servicios o entra directo a la ruta de tu vertical (`/courses`, `/events`, etc.).
+4. **`NG0912: Component ID generation collision (AlertComponent / app-alert)`**: viene de la base, es solo un warning y la página funciona.
+5. **`X is part of the TypeScript compilation but it's unused`** (mocks de Users y Products): viene de la base, es solo un warning y la página funciona.
 
 ## 👥 Equipo
 
