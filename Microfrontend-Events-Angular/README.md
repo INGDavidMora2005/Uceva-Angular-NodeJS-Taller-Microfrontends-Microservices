@@ -1,59 +1,67 @@
-# MicrofrontendOrdersAngular
+# Microfrontend Events Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.14.
+Microfrontend de **eventos del campus** del Taller 5. Muestra en una tabla el listado de eventos (id, título, lugar, fecha, capacidad y categoría) que entrega el microservicio de eventos, con estados de carga y error.
 
-## Development server
+Se integra en el Host (`Client-Host-Angular`) mediante **Webpack Module Federation**.
 
-To start a local development server, run:
+## Datos del microfrontend
 
-```bash
-ng serve
+| Dato | Valor |
+| --- | --- |
+| Puerto | `4205` |
+| Nombre del remote | `mf-events` |
+| Remote entry | `http://localhost:4205/remoteEntry.js` |
+| Módulo expuesto | `./EventsPage` → `src/app/pages/events/events.page.ts` |
+| Microservicio que consume | `http://localhost:3005/api/events/:count` (puerto `3005`) |
+| Angular | `20.3.14` |
+
+La página solicita **10 eventos** al iniciar.
+
+## Estructura
+
+```
+src/app/
+├── components/
+│   ├── alert/          # AlertComponent: alertas de carga y error
+│   └── events-table/   # EventsTableComponent (app-events-table): tabla con badges por categoría
+├── interfaces/
+│   ├── events.interface.ts  # CampusEvent y EventCategory
+│   └── state.interface.ts   # State y AlertState
+├── mocks/
+│   └── events.mocks.ts      # EVENTS_MOCK para las pruebas
+├── pages/
+│   └── events/         # EventsPage (app-events): estados init, loading, success y error
+└── services/
+    └── events/         # EventsService: getAllEvents(countEvents)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Colores de las categorías: `Academico` → primary, `Cultural` → warning, `Deportivo` → success, `Tecnologico` → info.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Instalación
 
 ```bash
-ng generate component component-name
+npm ci
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Scripts
 
-```bash
-ng generate --help
-```
+| Script | Descripción |
+| --- | --- |
+| `npm start` | Levanta el servidor de desarrollo en `http://localhost:4205`. |
+| `npm test` | Ejecuta las pruebas unitarias con Jest. |
+| `npm run test:coverage` | Ejecuta las pruebas y genera el reporte de cobertura en `coverage/`. |
+| `npm run compodoc` | Genera la documentación TSDoc en `documentation/`. |
 
-## Building
+## Cómo probarlo en el Host
 
-To build the project run:
+1. Levanta el microservicio de eventos en el puerto `3005`.
+2. Levanta este microfrontend:
 
-```bash
-ng build
-```
+   ```bash
+   npm start
+   ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+3. Verifica que `http://localhost:4205/remoteEntry.js` responda.
+4. Levanta el Host (`Client-Host-Angular`) y abre la ruta **`/events`** (opción "Eventos" del menú).
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+También se puede abrir directamente `http://localhost:4205/` para ver la página de forma aislada.
