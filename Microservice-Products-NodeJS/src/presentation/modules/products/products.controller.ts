@@ -37,7 +37,7 @@ export class ProductsController {
     setTimeout(() => {
       this.productsService
       .getAllProducts(Number(countProducts))
-      .then((products) => res.status(201).json(products))
+      .then((products) => res.status(200).json(products))
       .catch((error) => HandleError.error(error, res));
     }, 1000);
   };
