@@ -1,0 +1,29 @@
+<table class="table table-striped border">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Título</th>
+      <th scope="col">Lugar</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Capacidad</th>
+      <th scope="col">Categoría</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (event of events; track event.id) {
+      <tr>
+        <th scope="row">{{ event.id }}</th>
+        <td>{{ event.title }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.date | date:"dd/MM/yyyy HH:mm" }}</td>
+        <td>{{ event.capacity }}</td>
+        <td>
+          <dsb-badge-atom
+            [text]="event.category"
+            [type]="categoryMap[event.category]"
+          ></dsb-badge-atom>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
