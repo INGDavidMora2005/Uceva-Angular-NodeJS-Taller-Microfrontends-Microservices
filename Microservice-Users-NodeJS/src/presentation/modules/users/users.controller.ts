@@ -37,7 +37,7 @@ export class UsersController {
     setTimeout(() => {
       this.usersService
       .getAllUsers(Number(countUsers))
-      .then((users) => res.status(201).json(users))
+      .then((users) => res.status(200).json(users))
       .catch((error) => HandleError.error(error, res));
     }, 1000);
   };
