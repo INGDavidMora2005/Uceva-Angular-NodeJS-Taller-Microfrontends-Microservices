@@ -4,25 +4,26 @@ import { HandleError } from "../../../domain/erros/handle.error";
 import { EventsService } from "./events.service";
 
 /**
- * Controlador de pedidos.
+ * Controlador de eventos del campus.
  *
  * @remarks
- * Esta clase maneja las peticiones HTTP relacionadas con pedidos,
+ * Esta clase maneja las peticiones HTTP relacionadas con eventos,
  * delegando la lógica de negocio al `EventsService`.
  */
 export class EventsController {
 
   /**
-   * Servicio de pedidos.
+   * Servicio de eventos.
    */
   private readonly eventsService = new EventsService();
 
   /**
-   * Maneja la petición HTTP para obtener un listado de pedidos.
+   * Maneja la petición HTTP para obtener un listado de eventos.
    *
    * @remarks
-   * El número de pedidos a generar se obtiene desde los
+   * El número de eventos a generar se obtiene desde los
    * parámetros de la ruta y se valida que sea un número entero mayor o igual a 1.
+   * Responde 200 con la lista de eventos o 400 si el parámetro es inválido.
    *
    * @param req Objeto de petición de Express
    * @param res Objeto de respuesta de Express
