@@ -10,5 +10,16 @@ import { Routes } from '@angular/router';
  *
  * Incluye:
  * - Rutas de navegación principales del listado de eventos
+ *
+ * @see {@link EventsPage}
  */
-export const routes: Routes = [];
+export const routes: Routes = [
+  /**
+   * Ruta de eventos.
+   *
+   * @remarks
+   * Renderiza el componente `EventsPage`, encargado
+   * de mostrar y gestionar el listado de eventos.
+   */
+  { path: '', loadComponent: () => import('./pages/events/events.page').then((m) => m.EventsPage)},
+];
