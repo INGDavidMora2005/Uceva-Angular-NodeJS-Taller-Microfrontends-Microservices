@@ -3,7 +3,9 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 module.exports = withModuleFederationPlugin({
   name: 'mf-events',
   filename: "remoteEntry.js",
-  exposes: {},
+  exposes: {
+    './EventsPage': './src/app/pages/events/events.page.ts',
+  },
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
