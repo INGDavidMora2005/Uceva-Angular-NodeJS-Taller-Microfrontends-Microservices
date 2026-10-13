@@ -6,7 +6,7 @@ import { EventsRoutes } from "./modules/events/events.routes";
  *
  * @remarks
  * Proporciona un único punto de acceso a los endpoints
- * del backend, agrupando los módulos de usuarios y pedidos.
+ * del backend, agrupando el módulo de eventos.
  *
  * @example
  * ```ts

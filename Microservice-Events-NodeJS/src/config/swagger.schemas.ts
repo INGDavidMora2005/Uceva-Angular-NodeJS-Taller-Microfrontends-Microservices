@@ -2,48 +2,46 @@
  * @openapi
  * components:
  *   schemas:
- *     OrderStatus:
+ *     EventCategory:
  *       type: string
- *       description: Estado actual del pedido
+ *       description: Categoría del evento del campus
  *       enum:
- *         - Pendiente
- *         - Enviado
- *         - Entregado
- *         - Cancelado
- *       example: Pendiente
- *     Order:
+ *         - Academico
+ *         - Cultural
+ *         - Deportivo
+ *         - Tecnologico
+ *       example: Academico
+ *     CampusEvent:
  *       type: object
- *       description: Representa un pedido del sistema
+ *       description: Representa un evento del campus universitario
  *       required:
  *         - id
- *         - customer
- *         - product
- *         - quantity
- *         - total
- *         - status
- *         - createdAt
+ *         - title
+ *         - location
+ *         - date
+ *         - capacity
+ *         - category
  *       properties:
  *         id:
  *           type: integer
  *           example: 1
- *         customer:
+ *         title:
  *           type: string
- *           example: Juan Pérez
- *         product:
+ *           example: Semana de la ingeniería
+ *         location:
  *           type: string
- *           example: Laptop Gamer
- *         quantity:
- *           type: integer
- *           example: 2
- *         total:
- *           type: number
- *           example: 5000.50
- *         status:
- *           $ref: '#/components/schemas/OrderStatus'
- *         createdAt:
+ *           example: Auditorio Principal
+ *         date:
  *           type: string
  *           format: date-time
- *           example: '2024-01-15T10:30:00Z'
+ *           example: '2026-11-15T10:30:00Z'
+ *         capacity:
+ *           type: integer
+ *           minimum: 20
+ *           maximum: 500
+ *           example: 200
+ *         category:
+ *           $ref: '#/components/schemas/EventCategory'
  *     Error:
  *       type: object
  *       description: Objeto de error estandarizado

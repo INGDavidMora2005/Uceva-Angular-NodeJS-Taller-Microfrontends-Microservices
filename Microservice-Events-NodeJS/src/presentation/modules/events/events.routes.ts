@@ -10,10 +10,10 @@ export class EventsRoutes {
      * @openapi
      * /api/events/{countEvents}:
      *   get:
-     *     summary: Obtener listado de pedidos
-     *     description: Retorna una lista de pedidos generados dinámicamente según la cantidad solicitada.
+     *     summary: Obtener listado de eventos del campus
+     *     description: Retorna una lista de eventos del campus generados dinámicamente según la cantidad solicitada.
      *     tags:
-     *       - Orders
+     *       - Events
      *     parameters:
      *       - in: path
      *         name: countEvents
@@ -22,16 +22,16 @@ export class EventsRoutes {
      *           type: integer
      *           minimum: 1
      *           example: 5
-     *         description: Cantidad de pedidos a generar
+     *         description: Cantidad de eventos a generar
      *     responses:
      *       200:
-     *         description: Lista de pedidos generados
+     *         description: Lista de eventos generados
      *         content:
      *           application/json:
      *             schema:
      *               type: array
      *               items:
-     *                 $ref: '#/components/schemas/Order'
+     *                 $ref: '#/components/schemas/CampusEvent'
      *       400:
      *         description: Parámetro inválido
      *         content:
